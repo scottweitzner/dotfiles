@@ -37,6 +37,9 @@
 # jobs are running in this shell will all be displayed automatically when
 # appropriate.
 
+### Colors
+BACKGROUND_COLOR= 
+
 ### Segment drawing
 # A few utility functions to make it easy and re-usable to draw segmented prompts
 CURRENT_BG='NONE'
@@ -70,9 +73,8 @@ prompt_segment() {
   local bg fg
   [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
   [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
-  if [[ $CURRENT_BG != 'NONE' && $1 != $CURRENT_BG ]]; then
-    # NOTE: I removed a space at the start of line
-    echo -n " %{$bg%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR%{$fg%} "
+  if [[ $CURRENT_BG != 'NONE' ]]; then
+  	echo -n " %{$bg%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR%{$fg%} "
   else
     echo -n "%{$bg%}%{$fg%} "
   fi
@@ -127,7 +129,8 @@ prompt_git() {
     if [[ -n $dirty ]]; then
       prompt_segment yellow black
     else
-      prompt_segment green $CURRENT_FG
+      # prompt_segment green $CURRENT_FG
+      prompt_segment yellow 243
     fi
 
     if [[ -e "${repo_path}/BISECT_LOG" ]]; then
@@ -237,10 +240,10 @@ prompt_status() {
   local -a symbols
 
   [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
-  [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
+  [[ $UID -eq 0 ]] && symbols+="%{%F{white}%}⚡"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
 
-  [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
+  [[ -n "$symbols" ]] && prompt_segment yellow default "$symbols"
 }
 
 #AWS Profile:
