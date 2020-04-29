@@ -20,8 +20,21 @@ font:
 
 # keybindings
 key_bindings:
-  - { key: Left, mods: Command, chars: "\x1bb"}
+  - { key: Left,  mods: Command, chars: "\x1bb"}
   - { key: Right, mods: Command, chars: "\x1bf"}
+  - { key: W,     mods: Command, action: SpawnNewInstance }
+  - { key: F,     mods: Command, action: ToggleFullscreen }
+
+  # tmux
+  # ------------------------------------------------------------
+  - { key: T,     mods: Control, chars: "\x02\x63" }
+  - { key: H,     mods: Control, chars: "\x02\x22" } # horizontal splt
+  - { key: V,     mods: Control, chars: "\x02\x25" } # vertical split
+  - { key: Up,    mods: Command, chars: "\x02\x1b\x5b\x41" }
+  - { key: Down,  mods: Command, chars: "\x02\x1b\x5b\x42" }
+  - { key: Left,  mods: Command, chars: "\x02\x1b\x5b\x44" }
+  - { key: Right, mods: Command, chars: "\x02\x1b\x5b\x43" }
+
 
 
 # coloring

@@ -38,7 +38,7 @@
 # appropriate.
 
 ### Colors
-BACKGROUND_COLOR= 
+GRAY=243 
 
 ### Segment drawing
 # A few utility functions to make it easy and re-usable to draw segmented prompts
@@ -73,7 +73,7 @@ prompt_segment() {
   local bg fg
   [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
   [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
-  if [[ $CURRENT_BG != 'NONE' ]]; then
+  if [[ $CURRENT_BG != 'NONE' && $1 != $CURRENT_BG ]]; then
   	echo -n " %{$bg%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR%{$fg%} "
   else
     echo -n "%{$bg%}%{$fg%} "
@@ -98,14 +98,14 @@ prompt_end() {
 
 prompt_conda() {
   if [[ -n "$CONDA_DEFAULT_ENV" ]]; then
-    prompt_segment 243 default "(${CONDA_DEFAULT_ENV})"
+    prompt_segment $GRAY default "(${CONDA_DEFAULT_ENV})"
   fi
 }
 
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    prompt_segment 243 default "%(!.%{%F{yellow}%}.%n@%m"
+    prompt_segment $GRAY default "%(!.%{%F{yellow}%}.%n@%m"
   fi
 }
 
@@ -130,7 +130,7 @@ prompt_git() {
       prompt_segment yellow black
     else
       # prompt_segment green $CURRENT_FG
-      prompt_segment yellow 243
+      prompt_segment yellow $GRAY
     fi
 
     if [[ -e "${repo_path}/BISECT_LOG" ]]; then
